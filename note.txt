@@ -44,3 +44,8 @@ production:
     (for db file, it is important where the current working dir is when running the application)
     (navigate inside backend and then run > python runserver.py)
     
+
+2. adding fastapi-users
+    > pip install fastapi-users[sqlalchemy]
+    - update requirements.txt > pip freeze > requirements.txt
+    
