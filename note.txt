@@ -36,7 +36,7 @@ production:
 
 
 
-1. setting up
+1. setting up OK
     adding env
     > pip install python-dotenv
     - add .env file (inside it secret and database url)
@@ -45,7 +45,20 @@ production:
     (navigate inside backend and then run > python runserver.py)
     
 
-2. adding fastapi-users
+2. adding fastapi-users OK
     > pip install fastapi-users[sqlalchemy]
     - update requirements.txt > pip freeze > requirements.txt
+
+
+3. setting up alembic
+    > pip install alembic
+    > update alembic/env.py (import Base and all other models, set target_metadata to Base.metadata)
+    if using aiosqlite, sqlalchemy url needs to be hardcoded into alembic.ini file,
+    but if using only sqlite or postgresql, the more dynamic version can be added as follows:
+    from src.config import DATABASE_URL
+    config.set_main_option('sqlalchemy.url', DATABASE_URL)
+    (add them right below target_metadata = Base.metadata) in env.py
+    > alembic revision --autogenerate -m "Initial migration"
+    - edit the migration file
+    > alembic upgrade head
     
