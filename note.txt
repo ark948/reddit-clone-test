@@ -1,12 +1,13 @@
-users profiles
-follow/unfollow feature
-communities
-posts
-tags
-rich text editor for posts
-voting system
-caching
-search system
+main features:
+    users profiles
+    follow/unfollow feature
+    communities
+    posts
+    tags
+    rich text editor for posts
+    voting system
+    caching
+    search system
 
 database models:
     Users
@@ -14,7 +15,18 @@ database models:
     Communities
 
 
-backend options
-django-djangorestframework
-fastapi
-flask
+backend options (only api)
+    django+djangorestframework
+    fastapi
+    flask
+
+
+database options:
+    development: sqlite
+    production: postgresql
+    ORM: sqlalchemy (sqlmodel cannot be used since fastapi-users uses sqlalchemy)
+
+production:
+    docker
+    nginx
+    uvicorn
