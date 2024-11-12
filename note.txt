@@ -36,5 +36,11 @@ production:
 
 
 
-1. setting up:
+1. setting up
+    adding env
+    > pip install python-dotenv
+    - add .env file (inside it secret and database url)
+    adding database (no alembic yet)
+    (for db file, it is important where the current working dir is when running the application)
+    (navigate inside backend and then run > python runserver.py)
     
