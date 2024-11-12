@@ -8,6 +8,8 @@ main features:
     voting system
     caching
     search system
+    internationalization (i18n)
+    localization (l10n)
 
 database models:
     Users
@@ -30,3 +32,9 @@ production:
     docker
     nginx
     uvicorn
+
+
+
+
+1. setting up:
+    
