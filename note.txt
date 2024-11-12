@@ -1,0 +1,20 @@
+users profiles
+follow/unfollow feature
+communities
+posts
+tags
+rich text editor for posts
+voting system
+caching
+search system
+
+database models:
+    Users
+    Posts
+    Communities
+
+
+backend options
+django-djangorestframework
+fastapi
+flask
