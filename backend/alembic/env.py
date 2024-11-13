@@ -21,6 +21,10 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from src.authentication.models import User
+from src.apps.profile.models import Profile
+from src.apps.comments.models import Comment
+from src.apps.communities.models import Community
+from src.apps.posts.models import Post
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

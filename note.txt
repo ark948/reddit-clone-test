@@ -33,8 +33,29 @@ production:
     nginx
     uvicorn
 
+models:
+    user (in authentication section)
+    profile (in profile app)
+    community (in community app)
+    post (in posts app)
+    comment (in comment app)
+    tag (in posts app)
 
+relationships:
+    user --> profile
+    user --> posts
+    user --> communities
+    user --> comments
 
+    community --> users
+    community --> posts
+    
+    post --> user
+    post --> community
+    post --> comments
+
+    comment --> user
+    comment --> comments
 
 1. setting up OK
     adding env
@@ -61,4 +82,16 @@ production:
     > alembic revision --autogenerate -m "Initial migration"
     - edit the migration file
     > alembic upgrade head
-    
+
+
+4. adding models:
+    NOTE: i'll be using the most modern configuration style of sqlalchemy: "Annotated Declarative"
+    NOTE: decided to move first_name, last_name and username to Profile model
+    NOTE: in order to be able to make all the relationships, other models too need to be..
+    ..implemented right now.
+    NOTE: for many-to-many relationships, an association table is used (aka junction).
+
+    - update alembic/env.py as well
+    ERROR during running alembic revision command:
+    SyntaxError: from __future__ imports must occur at the beginning of the file
+    leaving tagging feature for later
