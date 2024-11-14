@@ -7,6 +7,9 @@ from src.authentication.models import User
 from src.config import SECRET_KEY
 from src.authentication.db import get_user_db
 
+from src.apps.profile.crud import create_profile
+from src.database import context
+
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):

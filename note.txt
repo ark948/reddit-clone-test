@@ -95,3 +95,11 @@ relationships:
     ERROR during running alembic revision command:
     SyntaxError: from __future__ imports must occur at the beginning of the file
     leaving tagging feature for later
+
+
+5. testing models
+    first with registration
+    upon user registration and user profile needs to be made as well
+
+    STRUCTURE UPDATE: Moving all models into same module in apps folder.
+    router and schemas will remain in separate apps folder.
