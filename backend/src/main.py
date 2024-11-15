@@ -14,7 +14,7 @@ async def lifespan(app: FastAPI):
     print("\n----> [Server - up] ---->\n")
     await create_db_and_tables()
     yield
-    print("\n----> [Server - down] ---->\n")
+    print("\n<---- [Server - down] <----\n")
 
 
 # a lifespan is logic is used to provide resources that are required throughout the application life tiem

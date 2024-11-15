@@ -103,3 +103,8 @@ relationships:
 
     STRUCTURE UPDATE: Moving all models into same module in apps folder.
     router and schemas will remain in separate apps folder.
+    VERY IMPORTANT NOTE:
+    to read tables with relationships, must define a 'load strategy'.
+    (especially when useing async with sqlalchemy)
+    NOTE: session query method is old in sqlalchemy.
+    execute and select and other ... needs to be used.
