@@ -5,9 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
 
-
 # common actions such as joining a community are done here
-
 
 
 async def profile_join_community(user_id: int, community_id: int, db: SessionDep) -> bool:
@@ -15,9 +13,10 @@ async def profile_join_community(user_id: int, community_id: int, db: SessionDep
 
     try:
         query_result = await db.execute(
-            select(Profile)
-            .options(joinedload(Profile.joined))
-        )
+                select(Profile)
+                .options(joinedload(Profile.joined))
+                .where(Profile.owner_id==user_id)
+            )
         profileObj =  query_result.scalar()
     except Exception as error:
         print("[1]\n\n", error, "\n\n")

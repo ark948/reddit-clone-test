@@ -32,6 +32,7 @@ async def read_profile_with_communities(id: int, db: SessionDep) -> Profile:
     result = await db.execute(
         select(Profile)
         .options(joinedload(Profile.joined))
+        .where(Profile.owner_id==id)
     )
     return result.scalar()
 

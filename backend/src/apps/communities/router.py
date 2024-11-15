@@ -21,6 +21,13 @@ async def get_loc():
 
 
 
+@router.get('/get-community')
+async def get_community(request: int, session: SessionDep, user: User=Depends(current_active_user)):
+    obj = await crud.show_community_with_members(request=request, db=session)
+    return obj
+
+
+
 @router.post('/create-community')
 async def create_community(request: CreateCommunitySchema, session: SessionDep, user: User = Depends(current_active_user)):
     obj = await crud.add_community(request=request, db=session)

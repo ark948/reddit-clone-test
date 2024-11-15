@@ -10,14 +10,10 @@ from fastapi_users.authentication import (
 )
 
 
-
 bearer_transport = BearerTransport(tokenUrl="user-manager/auth/jwt/login")
-
 
 def get_jwt_strategy() -> JWTStrategy[models.UP, models.ID]:
     return JWTStrategy(secret=SECRET_KEY, lifetime_seconds=3600)
-
-
 
 auth_backend = AuthenticationBackend(
     name="jwt",
@@ -25,10 +21,6 @@ auth_backend = AuthenticationBackend(
     get_strategy=get_jwt_strategy,
 )
 
-
-
 fastapi_users = FastAPIUsers[User, uuid.UUID](get_user_manager, [auth_backend])
-
-
 
 current_active_user = fastapi_users.current_user(active=True)

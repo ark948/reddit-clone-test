@@ -6,7 +6,7 @@ from datetime import datetime
 # create association tables here (also known as junction tables)
 
 profile_community_junction = Table(
-    'community_profile',
+    'profile_community',
     Base.metadata,
     Column('profile_id', ForeignKey("profiles.id"), primary_key=True),
     Column('community_id', ForeignKey("communities.id"), primary_key=True),

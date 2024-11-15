@@ -30,8 +30,7 @@ class Profile(Timestamp, Base):
     joined: Mapped[List[Community]] = relationship(secondary=profile_community_junction, back_populates="members")
     posts: Mapped[List["Post"]] = relationship(back_populates="author", cascade="all, delete")
     comments: Mapped[List["Comment"]] = relationship(back_populates="author")
-    stars: Mapped[int]
-    # update stars --> mapped_column(nullable=True)
+    stars: Mapped[int] = mapped_column(nullable=True)
 
 
 

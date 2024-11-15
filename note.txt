@@ -108,3 +108,6 @@ relationships:
     (especially when useing async with sqlalchemy)
     NOTE: session query method is old in sqlalchemy.
     execute and select and other ... needs to be used.
+    PROBLEM on profile-community association table, no id column.
+    HUGE problem in profile join community crud action...
+    attempting to remvoe database and run upgrade head again
