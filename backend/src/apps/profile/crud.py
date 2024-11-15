@@ -21,10 +21,19 @@ async def read_profile_by_user(id: int, db: SessionDep) -> User:
     return result.scalar()
 
 
-
+# no longer works if profile has joined any community
 async def read_profile(id: int, db: SessionDep) -> Profile:
     results = await db.execute(select(Profile).where(Profile.owner_id==id))
     return results.scalar()
+
+
+
+async def read_profile_with_communities(id: int, db: SessionDep) -> Profile:
+    result = await db.execute(
+        select(Profile)
+        .options(joinedload(Profile.joined))
+    )
+    return result.scalar()
 
 
 

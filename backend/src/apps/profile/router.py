@@ -12,6 +12,7 @@ from src.apps.profile.schemas import (
     ReadProfileSchema
 )
 from src.apps.profile import crud
+from src.apps import actions
 
 
 router = APIRouter(prefix="/profile", tags=['Profile'])
@@ -33,9 +34,9 @@ async def get_user_profile(session: SessionDep, user: User = Depends(current_act
 
 
 
-@router.get('/get-profile', response_model=ReadProfileSchema, status_code=status.HTTP_200_OK)
+@router.get('/get-profile', status_code=status.HTTP_200_OK)
 async def get_profile(session: SessionDep, user: User = Depends(current_active_user)):
-    return await crud.read_profile(id=user.id, db=session)
+    return await crud.read_profile_with_communities(id=user.id, db=session)
 
 
 
@@ -50,3 +51,10 @@ async def create_profile(request: CreateProfileSchema, session: SessionDep, user
         "profile_id": profileObject.id,
         "username": profileObject.username
     }
+
+
+
+@router.post('/join-community')
+async def join_community(community_id: int, session: SessionDep, user: User = Depends(current_active_user)):
+    obj = await actions.profile_join_community(user_id=user.id, community_id=community_id, db=session)
+    return obj
