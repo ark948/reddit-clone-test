@@ -126,3 +126,11 @@ relationships:
 > pip install anyio pytest-asyncio pytest-tornasync pytest-trio pytest-twisted twisted
 
 - added pyproject.toml (used for async pytest)
+IMPORTANT: to run tests asynchronously, got help from a book:
+> pip install httpx pytest-asyncio
+- add the following to pyproject.toml or pytest.ini:
+asyncio_mode = True
+(if pytest.int exists, it will take precedence over any other file)
+NOTE: Reverting back to non async testing (i was doing it wrong all along)
+(TestClient does not support async based tests)
+Removing test folder entrirely
