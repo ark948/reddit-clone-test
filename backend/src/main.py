@@ -29,3 +29,8 @@ app.include_router(community_router)
 @app.get('/')
 def index():
     return {"loc": "root"}
+
+
+@app.get('/test')
+def test():
+    return {'message': "Hello World test"}
