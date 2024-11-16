@@ -116,3 +116,13 @@ relationships:
 
 6. to run tests with pytest:
 > pytest -s (s flag to include the print statements)
+    - anyio
+    - pytest-asyncio
+    - pytest-tornasync
+    - pytest-trio
+    - pytest-twisted
+
+
+> pip install anyio pytest-asyncio pytest-tornasync pytest-trio pytest-twisted twisted
+
+- added pyproject.toml (used for async pytest)
