@@ -11,12 +11,6 @@ from src.database.base import Base
 from src.database.connection import get_async_session
 
 
-# Create a sessionmaker to manage sessions
-
-
-# Create tables in the database
-
-
 
 @pytest_asyncio.fixture(scope="function")
 async def db_session():

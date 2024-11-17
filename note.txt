@@ -115,33 +115,50 @@ relationships:
 
 
 6. to run tests with pytest:
-> pytest -s (s flag to include the print statements)
-    - anyio
-    - pytest-asyncio
-    - pytest-tornasync
-    - pytest-trio
-    - pytest-twisted
+    > pytest -s (s flag to include the print statements)
+        - anyio
+        - pytest-asyncio
+        - pytest-tornasync
+        - pytest-trio
+        - pytest-twisted
 
 
-> pip install anyio pytest-asyncio pytest-tornasync pytest-trio pytest-twisted twisted
+    > pip install anyio pytest-asyncio pytest-tornasync pytest-trio pytest-twisted twisted
 
-- added pyproject.toml (used for async pytest)
-IMPORTANT: to run tests asynchronously, got help from a book:
-> pip install httpx pytest-asyncio
-- add the following to pyproject.toml or pytest.ini:
-asyncio_mode = True
-(if pytest.int exists, it will take precedence over any other file)
-NOTE: Reverting back to non async testing (i was doing it wrong all along)
-(TestClient does not support async based tests)
-Removing test folder entrirely
+    - added pyproject.toml (used for async pytest)
+    IMPORTANT: to run tests asynchronously, got help from a book:
+    > pip install httpx pytest-asyncio
+    - add the following to pyproject.toml or pytest.ini:
+    asyncio_mode = True
+    (if pytest.int exists, it will take precedence over any other file)
+    NOTE: Reverting back to non async testing (i was doing it wrong all along)
+    (TestClient does not support async based tests)
+    Removing test folder entrirely
 
-PROBLEM: Project is written in async.
-all codes and database connection is async.
+    PROBLEM: Project is written in async.
+    all codes and database connection is async.
 
-so that will cause problems in testing, unless testing is also done in async.
-i must either convert project into sync, the use normal sync tests...
-or make the tests, async as well... (we'll go with this for now)
+    so that will cause problems in testing, unless testing is also done in async.
+    i must either convert project into sync, the use normal sync tests...
+    or make the tests, async as well... (we'll go with this for now)
 
-0001.py in database folder is a possible update on database session.
-note: async codes need to run in a event loop.
-note: pytest command must be ran inside where pytest.ini file exists
+    0001.py in database folder is a possible update on database session.
+    note: async codes need to run in a event loop.
+    note: pytest command must be ran inside where pytest.ini file exists
+
+
+
+
+7. some heavy structure update:
+    using pydantic for env variables (not much difference with config file, just a simple class)
+    updating models to sqlmodel (along with sqlalchemy for database connection, essentially sqlmodel+sqlalchemy+alembic)
+    config.py is the old config file (keeping this for now)
+    settings.py is the new one
+    > pip install pydantic-settings
+
+    authentication:
+        v1 -> my own (using fastapi templates)
+        v2 -> fastapi-users
+        but this will conflict with User model (they both have one)
+
+    same process for database.
