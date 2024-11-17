@@ -1,9 +1,10 @@
 # pyproject.toml
 [tool.pytest.ini_options]
-minversion = "6.0"
-addopts = "-ra -q"
 testpaths = [
     "tests",
     "integration",
 ]
-asyncio_default_fixture_loop_scope="function"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = [
+    'ignore:configuration option "asyncio_default_fixture_loop_scope" is unset',
+]

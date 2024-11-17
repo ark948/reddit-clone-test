@@ -134,3 +134,14 @@ asyncio_mode = True
 NOTE: Reverting back to non async testing (i was doing it wrong all along)
 (TestClient does not support async based tests)
 Removing test folder entrirely
+
+PROBLEM: Project is written in async.
+all codes and database connection is async.
+
+so that will cause problems in testing, unless testing is also done in async.
+i must either convert project into sync, the use normal sync tests...
+or make the tests, async as well... (we'll go with this for now)
+
+0001.py in database folder is a possible update on database session.
+note: async codes need to run in a event loop.
+note: pytest command must be ran inside where pytest.ini file exists
