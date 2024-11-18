@@ -12,10 +12,10 @@ class ShowUser(BaseModel):
     model_config = ConfigDict(
         form_attributes=True, 
         json_schema_extra={
-        "example": {
-            "email" : "user@example.com",
-        }
-    })
+            "example": {
+                "email" : "user@example.com",
+            }
+        })
 
 
 class CreateUser(BaseModel):
@@ -26,7 +26,8 @@ class CreateUser(BaseModel):
         form_attributes=True,
         json_schema_extra={
             "example": {
-                "email": "user@example.com"
+                "email": "user@example.com",
+                "password": "at least 8 in length"
             }
         })
 

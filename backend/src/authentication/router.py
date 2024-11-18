@@ -4,9 +4,12 @@ from sqlalchemy.ext.asyncio.session import AsyncSession
 from http import HTTPStatus
 
 
-from src.authentication.dependencies import get_users_crud
+from src.authentication.dependencies import get_users_crud, UserServiceDep
 from src.authentication.service import UsersCrud
 from src.authentication.schemas import CreateUser, ShowUser
+from src.database.dependencies import SessionDep
+from src.database.models.sqlmodels import User
+from typing import List
 
 
 router = APIRouter(
@@ -31,9 +34,25 @@ async def create_user_by_repo(data: CreateUser, users: UsersCrud = Depends(get_u
     user = await users.create(data=data)
 
 
-@router.get('/test-get-02')
-async def get_user_by_service(data: CreateUser, session: AsyncSession = Depends(get_session)):
-    book = await UsersCrud(session=session).create(data=data)
+
+@router.get('/get-user/{id}')
+async def get_user_by_service(id: int, u: UserServiceDep):
+    item = await u.get_user(id)
+    return item
+
+
+
+@router.get('/get-all-users', response_model=List[ShowUser])
+async def get_all_users_by_service(users_service: UsersCrud = Depends(get_users_crud)):
+    all_users = await users_service.get_all_users()
+    return all_users
+
+
+@router.post('/create-user', response_model=ShowUser, status_code=HTTPStatus.CREATED)
+async def create_user_by_service(data: CreateUser, uesrs_service: UsersCrud = Depends(get_users_crud)):
+    user = await uesrs_service.create_user(data=data)
+    return user
+
 
 
 @router.delete("/{user_id}")
