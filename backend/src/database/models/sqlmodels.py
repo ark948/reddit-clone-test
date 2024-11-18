@@ -38,8 +38,14 @@ class User(UserBase, table=True):
     __tablename__ = 'users'
     id: int = Field(primary_key=True, index=True, nullable=False)
     vcode: str = Field(default=None)
-    created_at: datetime = Field(default=datetime.now, nullable=False)
-    updated_at: datetime = Field(default=datetime.now, nullable=False)
+    created_at: datetime = Field(
+            sa_column=Column(postgresql.TIMESTAMP),
+            default=datetime.now, nullable=False
+        )
+    updated_at: datetime = Field(
+            sa_column=Column(postgresql.TIMESTAMP),
+            default=datetime.now, nullable=False
+        )
     profile: Optional["Profile"] = Relationship(back_populates="owner")
 
     def __repr__(self) -> str:

@@ -3,6 +3,9 @@ from contextlib import asynccontextmanager
 from src.database.provider import init_db
 
 
+from src.authentication.router import router as auth_router
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # not needed if alembic was added
@@ -20,7 +23,7 @@ app = FastAPI(
         lifespan=lifespan
     )
 
-
+app.include_router(auth_router)
 
 @app.get('/')
 async def index():
