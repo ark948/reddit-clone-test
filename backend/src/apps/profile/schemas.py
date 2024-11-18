@@ -9,7 +9,10 @@ class ReadProfileSchema(BaseModel):
     last_name: Optional[str] = None
     username: str
     
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+            from_attributes=True,
+            extra="forbid"
+        )
 
 
 class CreateProfileSchema(BaseModel):
@@ -17,4 +20,7 @@ class CreateProfileSchema(BaseModel):
     last_name: Optional[str] = None
     username: str
     
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+            from_attributes=True,
+            extra="forbid"
+    )

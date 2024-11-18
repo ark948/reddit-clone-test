@@ -158,7 +158,19 @@ relationships:
 
     authentication:
         v1 -> my own (using fastapi templates)
-        v2 -> fastapi-users
+        v2 -> fastapi-users pattern
         but this will conflict with User model (they both have one)
 
     same process for database.
+
+
+    v1 in authentication and database will use settings.py
+    v2 (fastapi-users) in both will use config.py
+
+
+
+    # a lifespan is logic is used to provide resources that are required throughout the application life time
+    # starts right at startup and ends after shutdown
+
+    sqlalchemy events should be studied.
+

@@ -32,6 +32,21 @@ class Profile(Timestamp, Base):
     comments: Mapped[List["Comment"]] = relationship(back_populates="author")
     stars: Mapped[int] = mapped_column(nullable=True)
 
+    def dict(self):
+        # return the dict repr
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'username': self.username,
+            'owner_id': self.owner_id,
+            'owner': self.owner,
+            'joined': self.joined,
+            'posts': self.posts,
+            'comments': self.comments,
+            'stars': self.stars
+        }
+
 
 
 class Community(Timestamp, Base):

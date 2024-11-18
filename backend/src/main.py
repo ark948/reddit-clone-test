@@ -1,29 +1,25 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-
-
-# local imports
-from src.database.connection import create_db_and_tables
-from src.authentication.router import router as auth_router
-from src.apps.profile.router import router as profile_router
-from src.apps.communities.router import router as community_router
+from src.database.provider import init_db
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # not needed if alembic was added
     print("\n----> [Server - up] ---->\n")
-    await create_db_and_tables()
+    await init_db()
     yield
     print("\n<---- [Server - down] <----\n")
 
 
-# a lifespan is logic is used to provide resources that are required throughout the application life tiem
-# starts right at startup and ends after shutdown
-app = FastAPI(lifespan=lifespan)
-app.include_router(auth_router)
-app.include_router(profile_router)
-app.include_router(community_router)
+
+app = FastAPI(
+        title="Reddit Clone",
+        version="0.1.0",
+        description="A simple clone of reddit using FastAPI",
+        lifespan=lifespan
+    )
+
 
 
 @app.get('/')
