@@ -6,6 +6,10 @@ from datetime import datetime
 
 
 
+class BasicTimestamp(SQLModel):
+    created_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP), default=datetime.now)
+    updated_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP), default=datetime.now)
+
 
 
 

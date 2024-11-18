@@ -6,7 +6,7 @@ from datetime import datetime
 from uuid import UUID, uuid4
 
 
-from src.database.models.mixins import TimestampModel, UUIDModel
+from src.database.models.mixins import TimestampModel
 
 
 role_prefix = 'user'
@@ -34,18 +34,14 @@ class UserBase(SQLModel):
     role: Optional[str] = Field(sa_column=Column("role", role_types, nullable=True))
 
 
-class User(UserBase, table=True):
+class User(
+    TimestampModel,
+    UserBase, 
+    table=True
+    ):
     __tablename__ = 'users'
     id: int = Field(primary_key=True, index=True, nullable=False)
     vcode: str = Field(default=None)
-    created_at: datetime = Field(
-            sa_column=Column(postgresql.TIMESTAMP),
-            default=datetime.now, nullable=False
-        )
-    updated_at: datetime = Field(
-            sa_column=Column(postgresql.TIMESTAMP),
-            default=datetime.now, nullable=False
-        )
     profile: Optional["Profile"] = Relationship(back_populates="owner")
 
     def __repr__(self) -> str:
@@ -55,11 +51,17 @@ class User(UserBase, table=True):
         return {
             'uid': self.id,
             'vcode': self.vcode,
+            'created': self.created_at,
+            'updated': self.updated_at,
             'profile': self.profile # may cause error
         }
 
 
-class Profile(SQLModel, table=True):
+class Profile(
+    TimestampModel,
+    SQLModel, 
+    table=True
+    ):
     id: int = Field(default=None, primary_key=True)
     first_name: Optional[str] = None
     last_name: Optional[str] = None
@@ -76,6 +78,8 @@ class Profile(SQLModel, table=True):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'username': self.username,
+            'created': self.created_at,
+            'updated': self.updated_at,
             'owner_id': self.owner_id,
             'owner': self.owner # may cause error
         }

@@ -7,25 +7,28 @@ from typing import Optional
 class ShowUser(BaseModel):
     id: int
     email: EmailStr
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
     is_active: bool = False
     vcode: str
-    model_config = ConfigDict(form_attributes=True, json_schema_extra={
+    model_config = ConfigDict(
+        form_attributes=True, 
+        json_schema_extra={
         "example": {
-            "email" : "some@some.com",
-            # and the rest...
+            "email" : "user@example.com",
         }
     })
 
 
 class CreateUser(BaseModel):
     email: EmailStr
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
     password: str
     is_active: bool = False
-    model_config = ConfigDict(form_attributes=True)
+    model_config = ConfigDict(
+        form_attributes=True,
+        json_schema_extra={
+            "example": {
+                "email": "user@example.com"
+            }
+        })
 
 
 class VerifyUser(BaseModel):

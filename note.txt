@@ -174,3 +174,11 @@ relationships:
 
     sqlalchemy events should be studied.
 
+    Running alembic (updated version): > alembic init -t async <migrations folder name>
+    - update env.py file, by adding models and metadata
+    - also add "import sqlmodel" to script.py.mako file (so that sqlmodel is imported in migration files)
+    - run> alembic revision --autogenerate -m "message"
+    note: if a downgrade was needed, make sure to add the following code to migration file to drop the type check:
+    op.execute("DROP TYPE hrs_role;")
+
+    error: There is a problem with my BasicTimestamp
