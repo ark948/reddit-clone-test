@@ -52,3 +52,13 @@ async def get_all_users2(session: SessionDep):
     for user in results:
         data.append(user[0])
     return data
+
+
+# also ok
+@router.get('/get-all3', response_model=List[UserResponseModel], status_code=HTTPStatus.OK)
+async def get_all_users3(u: UserServiceDep):
+    results = await u.get_all_users()
+    data = []
+    for user in results:
+        data.append(user[0])
+    return data
