@@ -13,3 +13,8 @@ class CreateUser(BaseModel):
 class ShowUser(BaseModel):
     email: str
     model_config = ConfigDict(form_attributes=True)
+
+
+
+class UserResponseModel(User):
+    pass

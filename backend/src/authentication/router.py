@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 
 from src.authentication.dependencies import get_users_crud, UserServiceDep
 from src.authentication.service import UsersCrud
+from src.authentication.schemas import UserResponseModel
 from src.authentication import schemas
 from src.database.dependencies import SessionDep
 from src.database.models.sqlmodels import User
@@ -35,8 +36,19 @@ async def get_user_by_service(given_id: int, u: UserServiceDep):
         return email
     
 
+# this works
 @router.get('/get-all')
 async def get_all_users(session: SessionDep):
     stmt = select(User).order_by(User.created_at)
     results = await session.exec(statement=stmt)
     return results.all()
+
+
+# also ok
+@router.get('/get-all2', response_model=List[UserResponseModel])
+async def get_all_users2(session: SessionDep):
+    results = await UsersCrud(session=session).get_all_users()
+    data = []
+    for user in results:
+        data.append(user[0])
+    return data
