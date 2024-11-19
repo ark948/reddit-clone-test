@@ -27,59 +27,26 @@ def _create_enums(metadata, conn, **kw):
 
 
 
-class UserBase(SQLModel):
-    email: str = Field(index=True, nullable=False, max_length=128)
-    password: str
-    is_active: bool = Field(default=False)
-    role: Optional[str] = Field(sa_column=Column("role", role_types, nullable=True))
 
-
-class User(
-    TimestampModel,
-    UserBase, 
-    table=True
-    ):
+class User(SQLModel, table=True):
     __tablename__ = 'users'
     id: int = Field(primary_key=True, index=True, nullable=False)
+    email: str = Field(index=True, nullable=False, max_length=128)
+    password: str = Field(nullable=False)
+    is_active: bool = Field(default=False)
     vcode: str = Field(default=None)
-    profile: Optional["Profile"] = Relationship(back_populates="owner")
+    role: Optional[str] = Field(sa_column=Column("role", role_types, nullable=True))
+    created_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP, default=datetime.now))
+    updated_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP, default=datetime.now))
 
     def __repr__(self) -> str:
-        return f'User -> {self.id}'
-
-    def dict(self):
-        return {
-            'uid': self.id,
-            'vcode': self.vcode,
-            'created': self.created_at,
-            'updated': self.updated_at,
-            'profile': self.profile # may cause error
-        }
-
-
-class Profile(
-    TimestampModel,
-    SQLModel, 
-    table=True
-    ):
-    id: int = Field(default=None, primary_key=True)
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    username: str = Field(unique=True, nullable=False, max_length=64)
-    owner_id: int = Field(foreign_key='users.id')
-    owner: User = Relationship(back_populates="profile")
-
-    def __repr__(self) -> str:
-        return f'Profile -> {self.username}'
+        return f'User -> {self.id} - {self.email}'
 
     def dict(self):
         return {
             'id': self.id,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'username': self.username,
-            'created': self.created_at,
-            'updated': self.updated_at,
-            'owner_id': self.owner_id,
-            'owner': self.owner # may cause error
+            'email': self.email,
+            'vcode': self.vcode,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
         }
