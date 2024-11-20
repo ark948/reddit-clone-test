@@ -1,0 +1,2 @@
+we are returning a dict with key of result and value of "no user found"
+but response wants a pydantic schema with email

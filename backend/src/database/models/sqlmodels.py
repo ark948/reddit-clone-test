@@ -39,10 +39,8 @@ class User(SQLModel, table=True):
     created_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP, default=datetime.now))
     updated_at: datetime = Field(sa_column=Column(postgresql.TIMESTAMP, default=datetime.now))
 
-    def __repr__(self) -> str:
-        return f'User -> {self.id} - {self.email}'
-
-    def dict(self):
+    # rename this to something other than dict() to be safe (making sure no conflict with internal methods)
+    def get_dict_of_this(self):
         return {
             'id': self.id,
             'email': self.email,
