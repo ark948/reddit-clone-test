@@ -31,9 +31,10 @@ async def create_user_by_service(u: UserServiceDep, data: schemas.CreateUser):
 
 @router.get('/get-user/{id}')
 async def get_user_by_service(given_id: int, u: UserServiceDep):
-    user = await u.get_user(user_id=given_id)
-    for email in user:
-        return email
+    result = await u.get_user(user_id=given_id)
+    if result:
+        return result[0]
+    return {"result": "no user found."}
     
 
 # this works

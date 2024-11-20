@@ -30,7 +30,8 @@ class UsersCrud:
     async def get_user(self, user_id):
         stmt = select(User).where(User.id==user_id)
         result = await self.session.exec(statement=stmt)
-        return result.first()
+        result = result.first()
+        return result
 
 
 
